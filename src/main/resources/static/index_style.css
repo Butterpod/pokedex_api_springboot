@@ -1,0 +1,16 @@
+body { font-family: Arial, sans-serif; margin: 20px; }
+h1 { color: #e3350d; }
+
+.pokemon-card {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+}
+
+.muted { color: #666; font-size: 0.9em; }
+.stat { display: inline-block; margin-right: 8px; }
+
+
+.card-link { display:block; text-decoration:none; }
+/*.card-link:hover { opacity:.9; }*/
