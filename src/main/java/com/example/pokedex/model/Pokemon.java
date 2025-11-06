@@ -20,17 +20,27 @@ public class Pokemon {
     @Column(nullable = false)
     private String color;
 
+    @Column(name = "hp")
     private Integer hp;
+
+    @Column(name = "attack")
     private Integer attack;
+
+    @Column(name = "defense")
     private Integer defense;
+
+    @Column(name = "speed")
     private Integer speed;
+
+    @Column(name = "pokeapi_id")
+    private Integer pokeapiId; // nullable
+
 
     // Getters et Setters
 
     public Long getId() {
         return id;
     }
-
     public void setId(Long id) {
         this.id = id;
     }
@@ -38,7 +48,6 @@ public class Pokemon {
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -46,7 +55,6 @@ public class Pokemon {
     public String getType1() {
         return type1;
     }
-
     public void setType1(String type1) {
         this.type1 = type1;
     }
@@ -54,7 +62,6 @@ public class Pokemon {
     public String getType2() {
         return type2;
     }
-
     public void setType2(String type2) {
         this.type2 = type2;
     }
@@ -62,7 +69,6 @@ public class Pokemon {
     public String getColor() {
         return color;
     }
-
     public void setColor(String color) {
         this.color = color;
     }
@@ -70,7 +76,6 @@ public class Pokemon {
     public Integer getHp() {
         return hp;
     }
-
     public void setHp(Integer hp) {
         this.hp = hp;
     }
@@ -78,7 +83,6 @@ public class Pokemon {
     public Integer getAttack() {
         return attack;
     }
-
     public void setAttack(Integer attack) {
         this.attack = attack;
     }
@@ -86,7 +90,6 @@ public class Pokemon {
     public Integer getDefense() {
         return defense;
     }
-
     public void setDefense(Integer defense) {
         this.defense = defense;
     }
@@ -94,8 +97,10 @@ public class Pokemon {
     public Integer getSpeed() {
         return speed;
     }
-
     public void setSpeed(Integer speed) {
         this.speed = speed;
     }
+
+    public Integer getPokeapiId() { return pokeapiId; }
+    public void setPokeapiId(Integer pokeapiId) { this.pokeapiId = pokeapiId; }
 }

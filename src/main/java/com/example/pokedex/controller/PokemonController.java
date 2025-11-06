@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/pokedex")
@@ -37,6 +38,7 @@ public class PokemonController {
         p.setAttack(pokemonSchema.attack());
         p.setDefense(pokemonSchema.defense());
         p.setSpeed(pokemonSchema.speed());
+        p.setPokeapiId(pokemonSchema.pokeapiId());
         return repository.save(p);
     }
 
@@ -61,6 +63,7 @@ public class PokemonController {
         p.setAttack(payload.getAttack());
         p.setDefense(payload.getDefense());
         p.setSpeed(payload.getSpeed());
+        p.setPokeapiId(payload.getPokeapiId());
         return repository.save(p);
     }
 
@@ -78,12 +81,43 @@ public class PokemonController {
 // Doc util : https://docs.spring.io/spring-data/jpa/reference/jpa/query-methods.html
     // https://www.javaguides.net/2023/08/spring-data-jpa-findbyname.html
 
-//    @GetMapping("/{name}")
-//    public org.springframework.data.domain.Page<Pokemon> search(
-//            @RequestParam(defaultValue = "name") String sort) {
-//    return ;
-//
-//    }
+    @GetMapping("/searchbyName")
+    public Optional<Pokemon> searchbyName(@RequestParam String name) {
+        return Optional.ofNullable(repository.findByName(name)
+                .orElseThrow(() -> new org.springframework.web.server.ResponseStatusException(
+                        org.springframework.http.HttpStatus.NOT_FOUND, "Pokemon pas trouvé (byName) ")));
+    }
+    // Optional permet de dire : s'il trouve rien, alors il retourne un null
+
+
+
+    @GetMapping("/searchbyType")
+    public List<Pokemon> searchByType(@RequestParam String type) {
+        return repository.findByType1(type);
+    }
+
+
+    // les Cris
+    // Source : https://pokeapi.co/
+    //https://pokeapi.co/docs/v2
+    @GetMapping("/{id}/cry")
+    public org.springframework.http.ResponseEntity<?> getCry(@PathVariable Long id) {
+        var p = repository.findById(id).orElseThrow(() ->
+                new org.springframework.web.server.ResponseStatusException(
+                        org.springframework.http.HttpStatus.NOT_FOUND, "Pokemon pas trouvé"));
+
+        Integer pokeId = p.getPokeapiId();
+        if (pokeId == null) {
+            return org.springframework.http.ResponseEntity.noContent().build(); // pas d’ID => pas de cri
+        }
+
+        String url = "https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/latest/"
+                + pokeId + ".ogg";
+        System.out.println("JE SUIS LE ID : "+pokeId);
+        return org.springframework.http.ResponseEntity.ok(java.util.Map.of("url", url));
+    }
+
+
 
 
 

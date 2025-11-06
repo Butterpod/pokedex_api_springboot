@@ -23,6 +23,23 @@ function norm(s) {
     .toLowerCase()
     .trim();
 }
+async function loadCry(pokemonId) {
+  try {
+    const res = await fetch(`/api/pokedex/${pokemonId}/cry`);
+    if (!res.ok || res.status === 204) return; // pas de cri
+    const { url } = await res.json();
+
+    const box = document.querySelector(".imgbox");
+    const audio = document.createElement("audio");
+    audio.controls = true;
+    audio.src = url;
+    audio.style.marginTop = "12px";
+    box.appendChild(audio);
+  } catch (e) {
+    console.warn("Pas de cri disponible", e);
+  }
+}
+
 
 
 // Récupère l'id dans l'URL
@@ -57,7 +74,7 @@ if (!id) {
     // Stats
     const statsEl = document.getElementById("stats");
     const stats = [
-      ["HP", p.hp], ["ATK", p.attack], ["DEF", p.defense], ["SPD", p.speed]
+      ["HP", p.hp], ["ATK", p.attack], ["DEF", p.defense], ["SPD", p.speed],
     ];
     stats.forEach(([label, val]) => {
       const s = document.createElement("div");
@@ -86,11 +103,11 @@ if (!id) {
 
 
     const img = document.getElementById("sprite");
-
-
     img.src = `${base}/${pokemon_name}.png`;
 
     img.alt = `Sprite de ${p.name}`;
+    loadCry(p.id);
+
 
 
   } catch (e) {

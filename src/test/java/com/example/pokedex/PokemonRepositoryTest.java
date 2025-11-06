@@ -28,9 +28,9 @@ class PokemonRepositoryTest {
     void crud_test() {
         // CREATE
         Pokemon p =new Pokemon();
-        p.setName("Lulu");
-        p.setType1("fée");
-        p.setColor("violet");
+        p.setName("Poppy");
+        p.setType1("Acier");
+        p.setColor("Gris");
         p.setAttack(10);
         p.setHp(10);
         p.setDefense(10);
@@ -46,7 +46,7 @@ class PokemonRepositoryTest {
 
 
         System.out.println(load.getName());
-        assertThat(load.getName()).isEqualTo("Lulu");
+        assertThat(load.getName()).isEqualTo("Poppy");
 
 
 
@@ -62,6 +62,7 @@ class PokemonRepositoryTest {
 
         System.out.println("Hp aprés modif: "+load1.getHp());
         assertThat(load.getHp()).isEqualTo(20);
+
 
 
 

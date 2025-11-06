@@ -14,5 +14,6 @@ public record PokemonSchema(
         @Min(1) Integer hp,
         @Min(1) Integer attack,
         @Min(1) Integer defense,
-        @Min(1) Integer speed
+        @Min(1) Integer speed,
+        @NotBlank Integer pokeapiId
 ) {}
